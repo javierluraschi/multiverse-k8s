@@ -208,7 +208,6 @@ RUN apt-get update \
 COPY userconf.sh /etc/cont-init.d/userconf
 
 ## running with "-e ADD=shiny" adds shiny server
-COPY add_shiny.sh /etc/cont-init.d/add
 COPY disable_auth_rserver.conf /etc/rstudio/disable_auth_rserver.conf
 COPY pam-helper.sh /usr/lib/rstudio-server/bin/pam-helper
 
