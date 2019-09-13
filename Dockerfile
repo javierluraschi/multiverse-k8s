@@ -245,5 +245,8 @@ RUN jupyter nbextension enable     --user --py nbrsessionproxy
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
 
 # Set up multiverse
-RUN R --quiet -e "remotes::install_github('javierluraschi/multiverse')"
-RUN R --quiet -e "multiverse::install_multiverse()"
+RUN R --quiet -e "install.packages(c('sparklyr', 'tensorflow', 'keras', 'mlflow'))"
+RUN R --quiet -e "sparklyr::spark_install(version = '2.3')"
+RUN R --quiet -e "tensorflow::install_tensorflow()"
+RUN R --quiet -e "keras::install_keras()"
+RUN R --quiet -e "mlflow::install_mlflow()"
