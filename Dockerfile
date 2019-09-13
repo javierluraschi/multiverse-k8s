@@ -241,13 +241,4 @@ RUN jupyter serverextension enable --user --py nbrsessionproxy
 RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
 
-# Make sure the contents of our repo are in ${HOME}
-COPY . ${HOME}
-USER root
-RUN chown -R ${NB_UID}:${NB_UID} ${HOME}
-USER ${NB_USER}
-
-# Run install.r if it exists
-RUN if [ -f install.r ]; then R --quiet -f install.r; fi
-
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
