@@ -58,6 +58,7 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev \
     libxml2-dev \
+    openjdk-8-jdk \
     perl \
     tcl8.6-dev \
     tk8.6-dev \
@@ -242,3 +243,7 @@ RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
 
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
+
+# Set up multiverse
+RUN R --quiet -e "remotes::install_github('javierluraschi/multiverse')"
+RUN R --quiet -e "multiverse::install_multiverse()"
