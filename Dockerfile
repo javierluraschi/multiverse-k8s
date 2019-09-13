@@ -57,6 +57,7 @@ RUN apt-get update \
     liblzma-dev \
     libx11-dev \
     libxt-dev \
+    libxml2-dev \
     perl \
     tcl8.6-dev \
     tk8.6-dev \
@@ -231,8 +232,8 @@ WORKDIR ${HOME}
 USER ${NB_USER}
 
 # Set up R Kernel for Jupyter
-RUN R --quiet -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'))"
-RUN R --quiet -e "devtools::install_github('IRkernel/IRkernel')"
+RUN R --quiet -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'remotes', 'uuid', 'digest'))"
+RUN R --quiet -e "remotes::install_github('IRkernel/IRkernel')"
 RUN R --quiet -e "IRkernel::installspec()"
 
 RUN jupyter serverextension enable --user --py nbserverproxy
