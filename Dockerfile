@@ -57,8 +57,6 @@ RUN apt-get update \
     liblzma-dev \
     libx11-dev \
     libxt-dev \
-    libxml2-dev \
-    openjdk-8-jdk \
     perl \
     tcl8.6-dev \
     tk8.6-dev \
@@ -244,6 +242,12 @@ RUN jupyter nbextension enable     --user --py nbrsessionproxy
 
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    libgit2-dev \
+    openjdk-8-jdk \
+    libxml2-dev
+    
 # Set up multiverse
 RUN R --quiet -e "install.packages(c('sparklyr', 'tensorflow', 'keras', 'mlflow'))"
 RUN R --quiet -e "sparklyr::spark_install(version = '2.3')"
