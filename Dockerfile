@@ -255,8 +255,8 @@ RUN R --quiet -e "install.packages(c('sparklyr', 'tensorflow', 'keras', 'mlflow'
 RUN R --quiet -e "sparklyr::spark_install(version = '2.3')"
 
 RUN pip3 install --upgrade --user virtualenv
-RUN wget https://bootstrap.pypa.io/get-pip.py
-  && python3 get-pip.py --force-reinstall
+RUN wget https://bootstrap.pypa.io/get-pip.py \
+  && python3 get-pip.py --force-reinstall \
   && rm get-pip.py
 
 RUN R --quiet -e "tensorflow::install_tensorflow()"
