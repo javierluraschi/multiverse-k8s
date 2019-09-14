@@ -127,6 +127,14 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV PATH=/usr/lib/rstudio-server/bin:$PATH
 ENV PANDOC_TEMPLATES_VERSION=${PANDOC_TEMPLATES_VERSION:-2.6}
 
+# multiverse deps
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    libgit2-dev \
+    openjdk-8-jdk \
+    libxml2-dev
+
+# rstudio deps
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     file \
@@ -241,12 +249,6 @@ RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
 
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    libgit2-dev \
-    openjdk-8-jdk \
-    libxml2-dev
     
 # Set up multiverse
 RUN R --quiet -e "install.packages(c('sparklyr', 'tensorflow', 'keras', 'mlflow'))"
