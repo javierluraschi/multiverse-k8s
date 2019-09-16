@@ -166,8 +166,6 @@ RUN apt-get update && \
     apt-get install -y -V libarrow-dev && \
     apt-get install -y -V libarrow-glib-dev && \
     apt-get install -y -V libarrow-flight-dev && \
-    apt-get install -y -V libplasma-dev && \
-    apt-get install -y -V libplasma-glib-dev && \
     apt-get install -y -V libgandiva-dev && \
     apt-get install -y -V libgandiva-glib-dev && \
     apt-get install -y -V libparquet-dev && \
