@@ -133,7 +133,7 @@ RUN apt-get update \
     libgit2-dev \
     openjdk-8-jdk \
     libxml2-dev
-    
+
 # multiverse deps conda
 ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
@@ -151,17 +151,17 @@ RUN apt-get install -y curl grep sed dpkg && \
     dpkg -i tini.deb && \
     rm tini.deb && \
     apt-get clean
-    
+
 # arrow deps
 RUN apt-get update && \
     apt-get install -y -V apt-transport-https curl gnupg lsb-release && \
     (echo "deb http://deb.debian.org/debian $(lsb_release --codename --short)-backports main" | tee /etc/apt/sources.list.d/backports.list) && \
     curl --output /usr/share/keyrings/apache-arrow-keyring.gpg https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-keyring.gpg && \
     (echo "deb [arch=amd64 signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/ $(lsb_release --codename --short) main" | tee /etc/apt/sources.list.d/apache-arrow.list) && \
-    (echo "deb-src [signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/ $(lsb_release --codename --short) main" | tee /etc/apt/sources.list.d/apache-arrow.list) && \
+    (echo "deb-src [signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/ $(lsb_release --codename --short) main" | tee -a /etc/apt/sources.list.d/apache-arrow.list) && \
     curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -  && \
     (echo "deb http://apt.llvm.org/$(lsb_release --codename --short)/ llvm-toolchain-$(lsb_release --codename --short)-7 main" | tee /etc/apt/sources.list.d/llvm.list) && \
-    (echo "deb-src http://apt.llvm.org/$(lsb_release --codename --short)/ llvm-toolchain-$(lsb_release --codename --short)-7 main" | tee /etc/apt/sources.list.d/llvm.list) && \
+    (echo "deb-src http://apt.llvm.org/$(lsb_release --codename --short)/ llvm-toolchain-$(lsb_release --codename --short)-7 main" | tee -a /etc/apt/sources.list.d/llvm.list) && \
     apt-get update && \
     apt-get install -y -V libarrow-dev && \
     apt-get install -y -V libarrow-glib-dev && \
@@ -288,7 +288,7 @@ RUN jupyter nbextension install    --user --py nbrsessionproxy
 RUN jupyter nbextension enable     --user --py nbrsessionproxy
 
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib
-    
+
 # Setup multiverse
 RUN R --quiet -e "install.packages(c('sparklyr', 'tensorflow', 'keras', 'mlflow'))"
 RUN R --quiet -e "sparklyr::spark_install(version = '2.3')"
